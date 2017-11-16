@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ProjCarWashModelStoreContainer" CdmEntityContainer="ProjCarWashEntities">
+    <EntitySetMapping Name="Customer_Data">
+      <EntityTypeMapping TypeName="ProjCarWashModel.Customer_Data">
+        <MappingFragment StoreEntitySet="Customer_Data">
+          <ScalarProperty Name="ID_Customer" ColumnName="ID_Customer" />
+          <ScalarProperty Name="Customer_Name" ColumnName="Customer_Name" />
+          <ScalarProperty Name="Phone_Customer" ColumnName="Phone_Customer" />
+          <ScalarProperty Name="Address_Customer" ColumnName="Address_Customer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Detail_Washing_Data">
+      <EntityTypeMapping TypeName="ProjCarWashModel.Detail_Washing_Data">
+        <MappingFragment StoreEntitySet="Detail_Washing_Data">
+          <ScalarProperty Name="ID_Detail" ColumnName="ID_Detail" />
+          <ScalarProperty Name="ID_Transaction" ColumnName="ID_Transaction" />
+          <ScalarProperty Name="ID_Type" ColumnName="ID_Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Price">
+      <EntityTypeMapping TypeName="ProjCarWashModel.Price">
+        <MappingFragment StoreEntitySet="Price">
+          <ScalarProperty Name="ID_Type" ColumnName="ID_Type" />
+          <ScalarProperty Name="Name_Price" ColumnName="Name_Price" />
+          <ScalarProperty Name="Small" ColumnName="Small" />
+          <ScalarProperty Name="Medium" ColumnName="Medium" />
+          <ScalarProperty Name="Large" ColumnName="Large" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transaction_Data">
+      <EntityTypeMapping TypeName="ProjCarWashModel.Transaction_Data">
+        <MappingFragment StoreEntitySet="Transaction_Data">
+          <ScalarProperty Name="ID_Transaction" ColumnName="ID_Transaction" />
+          <ScalarProperty Name="ID_Customer" ColumnName="ID_Customer" />
+          <ScalarProperty Name="ID_Type" ColumnName="ID_Type" />
+          <ScalarProperty Name="Date_Transaction" ColumnName="Date_Transaction" />
+          <ScalarProperty Name="Total_Price" ColumnName="Total_Price" />
+          <ScalarProperty Name="Number_Of_Vehicles" ColumnName="Number_Of_Vehicles" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

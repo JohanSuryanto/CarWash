@@ -1,0 +1,84 @@
+﻿@model IEnumerable<projCarWashV2.Customer_Data>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>DATA CUSTOMER</h2>
+
+<p>
+    @Html.ActionLink("ADD NEW", "Create", "Customer_Data", new { @class = "btn btn-primary" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            NAMA CUSTOMER
+        </th>
+        <th>
+           NOMOR PONSEL
+        </th>
+        <th>
+            TEMPAT TINGGAL
+        </th>
+        <th>
+            DATA KUNJUNGAN
+        </th>
+        <th>
+            ACTION
+        </th>
+        <th>
+            MORE
+        </th>
+        <th></th>
+    </tr>
+    
+@{ 
+    int i = 0;
+    foreach (var item in ViewBag.ListCustomer)
+    {
+
+    <tr>
+        <td>
+            @item.Customer_Name
+        </td>
+        <td>
+            @item.Phone_Customer
+        </td>
+        <td>
+            @item.Address_Customer
+        </td>
+        <td>
+            Ke - @ViewBag.DataListCustomer[i]
+        </td>
+        <td>
+            @*@{
+                if (ViewBag.DataListCustomer[i] != 0)
+                {
+                    if (@ViewBag.DataListCustomer[i] % 6 != 0)
+                    {
+
+                   @Html.ActionLink("BAYAR", "Create", "Transaction_Data", new { id = item.ID_Customer }, new { @class = "btn btn-primary" })
+                    }
+                    else
+                    {
+                   @Html.ActionLink("FREE", "Create", "Transaction_Data", new { id = item.ID_Customer }, new { @class = "btn btn-success" })
+                    }
+                }
+                else
+                {
+                        @Html.ActionLink("BAYAR", "Create", "Transaction_Data", new { id = item.ID_Customer }, new { @class = "btn btn-primary" })
+                    }
+                }*@
+            @Html.ActionLink((string)ViewBag.listStatus[i], "Create", "Transaction_Data", new { id = item.ID_Customer }, new { @class = ViewBag.listWarna[i]})
+            
+            </td>
+        <td>
+             @Html.ActionLink("Edit", "Edit", new { id = item.ID_Customer }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID_Customer })
+        </td>
+    </tr>
+                    i++;
+                }
+
+                }
+</table>

@@ -1,0 +1,106 @@
+﻿@model projCarWashV2.Customer_Data
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Customer_Data</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone_Customer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone_Customer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address_Customer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address_Customer)
+        </dd>
+        @*<list>
+            @{
+                int i;
+                for (i = 0; i < ViewBag.DataCount; i++)
+                {
+                    if (ViewBag.ID == 0)
+                    {
+                        @ViewBag.DataListCustomer[i]
+                    }
+                }
+            }
+        </list>*@
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_Customer }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+@*-----------------------------------------------------------------------------------------------*@
+<table class="table">
+    <tr>
+        <th>
+            Nomor Transaksi
+        </th>
+        <th>
+            Tanggal Transaksi
+        </th>
+        <th>
+            Total Pembayaran
+        </th>
+        <th>
+            Nomor Kendaraan
+        </th>
+        <th>
+            Nama Customer
+        </th>
+        <th>
+            Jenis Cuci
+        </th>
+        <th></th>
+    </tr>
+
+    
+    @foreach (var item in ViewBag.getData)
+    {
+       
+        <tr>
+            <td>
+                @item.ID_Transaction
+            </td>
+            <td>
+               @item.Date_Transaction
+            </td>
+            <td>
+               @item.Total_Price
+            </td>
+            <td>
+               @item.Number_Of_Vehicles
+            </td>
+            <td>
+               @item.Customer_Data.Customer_Name
+            </td>
+            <td>
+               @item.Price.Name_Price
+            </td>
+        </tr>
+            }
+      
+    </table>
+    

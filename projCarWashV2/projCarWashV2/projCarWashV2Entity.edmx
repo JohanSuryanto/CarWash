@@ -1,0 +1,308 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ProjCarWashModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customer_Data">
+          <Key>
+            <PropertyRef Name="ID_Customer" />
+          </Key>
+          <Property Name="ID_Customer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Customer_Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Phone_Customer" Type="varchar" MaxLength="255" />
+          <Property Name="Address_Customer" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Detail_Washing_Data">
+          <Key>
+            <PropertyRef Name="ID_Detail" />
+          </Key>
+          <Property Name="ID_Detail" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Transaction" Type="int" />
+          <Property Name="ID_Type" Type="int" />
+        </EntityType>
+        <EntityType Name="Price">
+          <Key>
+            <PropertyRef Name="ID_Type" />
+          </Key>
+          <Property Name="ID_Type" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_Price" Type="varchar" MaxLength="200" />
+          <Property Name="Small" Type="int" Nullable="false" />
+          <Property Name="Medium" Type="int" Nullable="false" />
+          <Property Name="Large" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transaction_Data">
+          <Key>
+            <PropertyRef Name="ID_Transaction" />
+          </Key>
+          <Property Name="ID_Transaction" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Customer" Type="int" />
+          <Property Name="ID_Type" Type="int" />
+          <Property Name="Date_Transaction" Type="date" />
+          <Property Name="Total_Price" Type="int" />
+          <Property Name="Number_Of_Vehicles" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <Association Name="FK_Customer_ID">
+          <End Role="Customer_Data" Type="Self.Customer_Data" Multiplicity="0..1" />
+          <End Role="Transaction_Data" Type="Self.Transaction_Data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer_Data">
+              <PropertyRef Name="ID_Customer" />
+            </Principal>
+            <Dependent Role="Transaction_Data">
+              <PropertyRef Name="ID_Customer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Price_Type_ID">
+          <End Role="Price" Type="Self.Price" Multiplicity="0..1" />
+          <End Role="Transaction_Data" Type="Self.Transaction_Data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Price">
+              <PropertyRef Name="ID_Type" />
+            </Principal>
+            <Dependent Role="Transaction_Data">
+              <PropertyRef Name="ID_Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_ID">
+          <End Role="Transaction_Data" Type="Self.Transaction_Data" Multiplicity="0..1" />
+          <End Role="Detail_Washing_Data" Type="Self.Detail_Washing_Data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction_Data">
+              <PropertyRef Name="ID_Transaction" />
+            </Principal>
+            <Dependent Role="Detail_Washing_Data">
+              <PropertyRef Name="ID_Transaction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Type_Price">
+          <End Role="Price" Type="Self.Price" Multiplicity="0..1" />
+          <End Role="Detail_Washing_Data" Type="Self.Detail_Washing_Data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Price">
+              <PropertyRef Name="ID_Type" />
+            </Principal>
+            <Dependent Role="Detail_Washing_Data">
+              <PropertyRef Name="ID_Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProjCarWashModelStoreContainer">
+          <EntitySet Name="Customer_Data" EntityType="Self.Customer_Data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Detail_Washing_Data" EntityType="Self.Detail_Washing_Data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Price" EntityType="Self.Price" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transaction_Data" EntityType="Self.Transaction_Data" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Customer_ID" Association="Self.FK_Customer_ID">
+            <End Role="Customer_Data" EntitySet="Customer_Data" />
+            <End Role="Transaction_Data" EntitySet="Transaction_Data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Price_Type_ID" Association="Self.FK_Price_Type_ID">
+            <End Role="Price" EntitySet="Price" />
+            <End Role="Transaction_Data" EntitySet="Transaction_Data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_ID" Association="Self.FK_Transaction_ID">
+            <End Role="Transaction_Data" EntitySet="Transaction_Data" />
+            <End Role="Detail_Washing_Data" EntitySet="Detail_Washing_Data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Type_Price" Association="Self.FK_Type_Price">
+            <End Role="Price" EntitySet="Price" />
+            <End Role="Detail_Washing_Data" EntitySet="Detail_Washing_Data" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProjCarWashModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customer_Data">
+          <Key>
+            <PropertyRef Name="ID_Customer" />
+          </Key>
+          <Property Name="ID_Customer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Customer_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone_Customer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Address_Customer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Transaction_Data" Relationship="Self.FK_Customer_ID" FromRole="Customer_Data" ToRole="Transaction_Data" />
+        </EntityType>
+        <EntityType Name="Detail_Washing_Data">
+          <Key>
+            <PropertyRef Name="ID_Detail" />
+          </Key>
+          <Property Name="ID_Detail" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Transaction" Type="Int32" />
+          <Property Name="ID_Type" Type="Int32" />
+          <NavigationProperty Name="Transaction_Data" Relationship="Self.FK_Transaction_ID" FromRole="Detail_Washing_Data" ToRole="Transaction_Data" />
+          <NavigationProperty Name="Price" Relationship="Self.FK_Type_Price" FromRole="Detail_Washing_Data" ToRole="Price" />
+        </EntityType>
+        <EntityType Name="Price">
+          <Key>
+            <PropertyRef Name="ID_Type" />
+          </Key>
+          <Property Name="ID_Type" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Price" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Small" Type="Int32" Nullable="false" />
+          <Property Name="Medium" Type="Int32" Nullable="false" />
+          <Property Name="Large" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Detail_Washing_Data" Relationship="Self.FK_Type_Price" FromRole="Price" ToRole="Detail_Washing_Data" />
+          <NavigationProperty Name="Transaction_Data" Relationship="Self.FK_Price_Type_ID" FromRole="Price" ToRole="Transaction_Data" />
+        </EntityType>
+        <EntityType Name="Transaction_Data">
+          <Key>
+            <PropertyRef Name="ID_Transaction" />
+          </Key>
+          <Property Name="ID_Transaction" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Customer" Type="Int32" />
+          <Property Name="ID_Type" Type="Int32" />
+          <Property Name="Date_Transaction" Type="DateTime" Precision="0" />
+          <Property Name="Total_Price" Type="Int32" />
+          <Property Name="Number_Of_Vehicles" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Customer_Data" Relationship="Self.FK_Customer_ID" FromRole="Transaction_Data" ToRole="Customer_Data" />
+          <NavigationProperty Name="Detail_Washing_Data" Relationship="Self.FK_Transaction_ID" FromRole="Transaction_Data" ToRole="Detail_Washing_Data" />
+          <NavigationProperty Name="Price" Relationship="Self.FK_Price_Type_ID" FromRole="Transaction_Data" ToRole="Price" />
+        </EntityType>
+        <Association Name="FK_Customer_ID">
+          <End Role="Customer_Data" Type="Self.Customer_Data" Multiplicity="0..1" />
+          <End Role="Transaction_Data" Type="Self.Transaction_Data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer_Data">
+              <PropertyRef Name="ID_Customer" />
+            </Principal>
+            <Dependent Role="Transaction_Data">
+              <PropertyRef Name="ID_Customer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_ID">
+          <End Role="Transaction_Data" Type="Self.Transaction_Data" Multiplicity="0..1" />
+          <End Role="Detail_Washing_Data" Type="Self.Detail_Washing_Data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction_Data">
+              <PropertyRef Name="ID_Transaction" />
+            </Principal>
+            <Dependent Role="Detail_Washing_Data">
+              <PropertyRef Name="ID_Transaction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Type_Price">
+          <End Role="Price" Type="Self.Price" Multiplicity="0..1" />
+          <End Role="Detail_Washing_Data" Type="Self.Detail_Washing_Data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Price">
+              <PropertyRef Name="ID_Type" />
+            </Principal>
+            <Dependent Role="Detail_Washing_Data">
+              <PropertyRef Name="ID_Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Price_Type_ID">
+          <End Role="Price" Type="Self.Price" Multiplicity="0..1" />
+          <End Role="Transaction_Data" Type="Self.Transaction_Data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Price">
+              <PropertyRef Name="ID_Type" />
+            </Principal>
+            <Dependent Role="Transaction_Data">
+              <PropertyRef Name="ID_Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProjCarWashEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customer_Data" EntityType="Self.Customer_Data" />
+          <EntitySet Name="Detail_Washing_Data" EntityType="Self.Detail_Washing_Data" />
+          <EntitySet Name="Price" EntityType="Self.Price" />
+          <EntitySet Name="Transaction_Data" EntityType="Self.Transaction_Data" />
+          <AssociationSet Name="FK_Customer_ID" Association="Self.FK_Customer_ID">
+            <End Role="Customer_Data" EntitySet="Customer_Data" />
+            <End Role="Transaction_Data" EntitySet="Transaction_Data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_ID" Association="Self.FK_Transaction_ID">
+            <End Role="Transaction_Data" EntitySet="Transaction_Data" />
+            <End Role="Detail_Washing_Data" EntitySet="Detail_Washing_Data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Type_Price" Association="Self.FK_Type_Price">
+            <End Role="Price" EntitySet="Price" />
+            <End Role="Detail_Washing_Data" EntitySet="Detail_Washing_Data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Price_Type_ID" Association="Self.FK_Price_Type_ID">
+            <End Role="Price" EntitySet="Price" />
+            <End Role="Transaction_Data" EntitySet="Transaction_Data" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProjCarWashModelStoreContainer" CdmEntityContainer="ProjCarWashEntities">
+          <EntitySetMapping Name="Customer_Data">
+            <EntityTypeMapping TypeName="ProjCarWashModel.Customer_Data">
+              <MappingFragment StoreEntitySet="Customer_Data">
+                <ScalarProperty Name="ID_Customer" ColumnName="ID_Customer" />
+                <ScalarProperty Name="Customer_Name" ColumnName="Customer_Name" />
+                <ScalarProperty Name="Phone_Customer" ColumnName="Phone_Customer" />
+                <ScalarProperty Name="Address_Customer" ColumnName="Address_Customer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Detail_Washing_Data">
+            <EntityTypeMapping TypeName="ProjCarWashModel.Detail_Washing_Data">
+              <MappingFragment StoreEntitySet="Detail_Washing_Data">
+                <ScalarProperty Name="ID_Detail" ColumnName="ID_Detail" />
+                <ScalarProperty Name="ID_Transaction" ColumnName="ID_Transaction" />
+                <ScalarProperty Name="ID_Type" ColumnName="ID_Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Price">
+            <EntityTypeMapping TypeName="ProjCarWashModel.Price">
+              <MappingFragment StoreEntitySet="Price">
+                <ScalarProperty Name="ID_Type" ColumnName="ID_Type" />
+                <ScalarProperty Name="Name_Price" ColumnName="Name_Price" />
+                <ScalarProperty Name="Small" ColumnName="Small" />
+                <ScalarProperty Name="Medium" ColumnName="Medium" />
+                <ScalarProperty Name="Large" ColumnName="Large" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transaction_Data">
+            <EntityTypeMapping TypeName="ProjCarWashModel.Transaction_Data">
+              <MappingFragment StoreEntitySet="Transaction_Data">
+                <ScalarProperty Name="ID_Transaction" ColumnName="ID_Transaction" />
+                <ScalarProperty Name="ID_Customer" ColumnName="ID_Customer" />
+                <ScalarProperty Name="ID_Type" ColumnName="ID_Type" />
+                <ScalarProperty Name="Date_Transaction" ColumnName="Date_Transaction" />
+                <ScalarProperty Name="Total_Price" ColumnName="Total_Price" />
+                <ScalarProperty Name="Number_Of_Vehicles" ColumnName="Number_Of_Vehicles" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

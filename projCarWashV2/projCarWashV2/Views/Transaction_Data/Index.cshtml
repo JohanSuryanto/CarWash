@@ -1,0 +1,63 @@
+﻿@model IEnumerable<projCarWashV2.Transaction_Data>
+
+@{
+    ViewBag.Title = "DATA ALL TRANSAKSI";
+}
+
+<h2>Data Transaksi</h2>
+<h3>Total Ada : <font color="red">@ViewBag.DataCount</font> Transaksi</h3>
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Nomor Transaksi
+        </th>
+        <th>
+            Tanggal Transaksi
+        </th>
+        <th>
+            Total Pembayaran
+        </th>
+        <th>
+           Nomor Kendaraan
+        </th>
+        <th>
+            Nama Customer
+        </th>
+        <th>
+           Jenis Cuci
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ID_Transaction)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date_Transaction)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Total_Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Number_Of_Vehicles)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer_Data.Customer_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price.Name_Price)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID_Transaction }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_Transaction }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_Transaction })
+        </td>
+    </tr>
+}
+
+</table>

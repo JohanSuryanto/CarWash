@@ -1,0 +1,58 @@
+﻿@model projCarWashV2.Transaction_Data
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Transaction_Data</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Date_Transaction)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date_Transaction)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Total_Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Total_Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Number_Of_Vehicles)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Number_Of_Vehicles)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer_Data.Customer_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer_Data.Customer_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price.Name_Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price.Name_Price)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_Transaction }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
